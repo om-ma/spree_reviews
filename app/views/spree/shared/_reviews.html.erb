@@ -7,7 +7,7 @@
     
       <% @product.reviews.each do |review| %>
         <div class="review">
-          <strong><%= review.user.try(:fullname) || review.user.try(:email) || "Anonymous" %></strong><br>
+          <strong><%= review.user.try(:name) || review.user.try(:email) || "Anonymous" %></strong><br>
           <%= review.review %><br>
           <%= "⭐" * review.rating %>
         </div>
