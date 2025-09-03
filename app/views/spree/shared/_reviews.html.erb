@@ -3,13 +3,19 @@
     <% if Spree::Reviews::Config[:include_unapproved_reviews] == false and product.reviews.approved.count == 0 %>
       <p class="reviews-none"><%= Spree.t(:no_reviews_available) %></p>
     <% else %>
-      <%= render 'spree/shared/rating', product: product, review: 0 %>
-    
+      <div class="mb-5">
+        <%= render 'spree/shared/rating', product: product, review: 0 %>
+      </div>
       <% @product.reviews.each do |review| %>
-        <div class="review">
-          <strong><%= review.user.try(:name) || review.user.try(:email) || "Anonymous" %></strong><br>
+        <div class="review mb-2">
+          <strong><%= review.try(:name) || review.user.try(:email) || "Anonymous" %></strong><br>
           <%= review.review %><br>
           <%= "⭐" * review.rating %>
+          <p>
+            <span class="text-gray-500 text-sm">
+              <%= time_ago_in_words(review.created_at) %> ago
+            </span>
+          </p>
         </div>
       <% end %>
     <% end %>
