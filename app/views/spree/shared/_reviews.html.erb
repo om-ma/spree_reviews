@@ -1,12 +1,14 @@
 
   <div id="reviews">
-    <% if Spree::Reviews::Config[:include_unapproved_reviews] == false and product.reviews.approved.count == 0 %>
-      <p class="reviews-none"><%= Spree.t(:no_reviews_available) %></p>
+    <% if product.reviews.approved.count == 0 %>
+      <div class="mb-5">
+        <p class="reviews-none"><%= Spree.t(:no_reviews_available) %></p>
+      </div>
     <% else %>
       <div class="mb-5">
         <%= render 'spree/shared/rating', product: product, review: 0 %>
       </div>
-      <% @product.reviews.each do |review| %>
+      <% @product.reviews.first(5).each do |review| %>
         <div class="review mb-2">
           <strong><%= review.try(:name) || review.user.try(:email) || "Anonymous" %></strong><br>
           <%= review.review %><br>
@@ -19,10 +21,10 @@
         </div>
       <% end %>
     <% end %>
-    <%= link_to Spree.t(:write_your_own_review), new_product_review_path(product), class: 'btn btn-primary mt-2', rel: 'nofollow', data: { turbo: false} %>
+    <%#= link_to Spree.t(:write_your_own_review), new_product_review_path(product), class: 'btn btn-primary mt-2', rel: 'nofollow', data: { turbo: false} %>
 
-    <% unless Spree::Reviews::Config[:include_unapproved_reviews] == false and product.reviews.approved.count == 0 %>
-      <%= Spree.t(:or) %>
-      <%= link_to Spree.t(:read_all_reviews), product_reviews_path(product), class: 'btn btn-primary mt-2', rel: 'nofollow', data: { turbo: false} %>
-    <% end %>
+    <%# unless Spree::Reviews::Config[:include_unapproved_reviews] == false and product.reviews.approved.count == 0 %>
+      <%#= Spree.t(:or) %>
+    <%= link_to Spree.t(:read_all_reviews), product_reviews_path(product), class: 'btn btn-primary mt-3', rel: 'nofollow', data: { turbo: false} %>
+    <%# end %>
   </div>

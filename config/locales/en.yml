@@ -20,6 +20,7 @@ en:
         one: one review
         other: "%{count} reviews"
   spree:
+    read_all_reviews: Check More Reviews
     approval_status: Approval status
     approve: Approve
     approved_reviews: Approved
